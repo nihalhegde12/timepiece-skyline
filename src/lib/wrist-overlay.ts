@@ -17,6 +17,13 @@ export type WristOverlay = {
   tilt: number;
 };
 
+/** Fraction of palm length behind the wrist landmark where the case centre sits. */
+export const WRIST_ANCHOR = .35;
+/** Wrist width relative to the index–pinky knuckle span. */
+export const WRIST_TO_PALM = .9;
+/** Try-on image width relative to wrist width (case is ~65% of the image width). */
+export const WATCH_TO_WRIST = 1.15;
+
 function toCoverPoint(point: NormalizedLandmark, fit: VideoFit) {
   const scale = Math.max(fit.containerWidth / fit.videoWidth, fit.containerHeight / fit.videoHeight);
   const renderedWidth = fit.videoWidth * scale;
@@ -54,19 +61,22 @@ export function wristOverlayFromLandmarks(
   if (!Number.isFinite(palmWidth) || palmWidth < 4) return null;
   const palmLength = Math.hypot(palmCenter.x - wristPoint.x, palmCenter.y - wristPoint.y);
   if (palmLength < 4) return null;
-  const offset = palmLength * .5 + palmWidth * armAdjustment;
+  // Sit just behind the wrist crease so the case edge meets the hand, as on a real wrist.
+  const offset = palmLength * WRIST_ANCHOR + palmWidth * armAdjustment;
   const axisX = (palmCenter.x - wristPoint.x) / palmLength;
   const axisY = (palmCenter.y - wristPoint.y) / palmLength;
   // Depth foreshortens the bracelet across the wrist, not the arm direction.
   const coverScale = Math.max(fit.containerWidth / fit.videoWidth, fit.containerHeight / fit.videoHeight);
   const depth = ((indexMcp.z ?? 0) - (pinkyMcp.z ?? 0)) * fit.videoWidth * coverScale;
   const tilt = Number.isFinite(depth) ? Math.max(.6, palmWidth / Math.hypot(palmWidth, depth)) : 1;
+  const wristWidth = palmWidth * WRIST_TO_PALM;
 
   return {
     x: wristPoint.x - axisX * offset - axisY * palmWidth * crossAdjustment,
     y: wristPoint.y - axisY * offset + axisX * palmWidth * crossAdjustment,
-    size: Math.max(24, Math.min(Math.min(fit.containerWidth, fit.containerHeight) * .8, palmWidth * 1.35 * sizeAdjustment)),
-    // Source crown points right: keep it toward the hand, bracelet across the arm.
+    // Image width: the case fills most of the wrist; the bracelet runs past both arm edges.
+    size: Math.max(24, Math.min(Math.min(fit.containerWidth, fit.containerHeight) * .8, wristWidth * WATCH_TO_WRIST * sizeAdjustment)),
+    // Source is top-down with the crown pointing right: crown toward the hand, bracelet across the arm.
     rotation: Math.atan2(axisY, axisX),
     palmWidth,
     tilt,
