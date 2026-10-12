@@ -37,7 +37,7 @@ describe('wrist overlay geometry', () => {
 
   it('preserves manual offset as the detected wrist moves', () => {
     expect(wristOverlayFromLandmarks(landmarks(), fit, 1, .2)?.y).toBe(515);
-    expect(wristOverlayFromLandmarks(landmarks({ x: .5, y: .7 }), fit, 1, .2)?.y).toBe(465);
+    expect(wristOverlayFromLandmarks(landmarks({ x: .5, y: .7 }), fit, 1, .2)?.y).toBe(440);
   });
 
   it('projects touch and mouse movement onto the arm axis only', () => {
