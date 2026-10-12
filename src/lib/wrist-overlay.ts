@@ -54,7 +54,7 @@ export function wristOverlayFromLandmarks(
   if (!Number.isFinite(palmWidth) || palmWidth < 4) return null;
   const palmLength = Math.hypot(palmCenter.x - wristPoint.x, palmCenter.y - wristPoint.y);
   if (palmLength < 4) return null;
-  const offset = palmLength * .35 + palmWidth * armAdjustment;
+  const offset = palmLength * .5 + palmWidth * armAdjustment;
   const axisX = (palmCenter.x - wristPoint.x) / palmLength;
   const axisY = (palmCenter.y - wristPoint.y) / palmLength;
   // Depth foreshortens the bracelet across the wrist, not the arm direction.
@@ -65,7 +65,7 @@ export function wristOverlayFromLandmarks(
   return {
     x: wristPoint.x - axisX * offset - axisY * palmWidth * crossAdjustment,
     y: wristPoint.y - axisY * offset + axisX * palmWidth * crossAdjustment,
-    size: Math.max(24, Math.min(Math.min(fit.containerWidth, fit.containerHeight) * .8, palmWidth * .85 * sizeAdjustment)),
+    size: Math.max(24, Math.min(Math.min(fit.containerWidth, fit.containerHeight) * .8, palmWidth * 1.35 * sizeAdjustment)),
     // Source crown points right: keep it toward the hand, bracelet across the arm.
     rotation: Math.atan2(axisY, axisX),
     palmWidth,

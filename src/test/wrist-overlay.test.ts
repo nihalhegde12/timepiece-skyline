@@ -15,7 +15,7 @@ describe('wrist overlay geometry', () => {
   it('positions and rotates the watch at the wrist', () => {
     const overlay = wristOverlayFromLandmarks(landmarks(), fit);
     expect(overlay?.x).toBe(500);
-    expect(overlay?.y).toBe(452.5);
+    expect(overlay?.y).toBe(475);
     expect(overlay?.rotation).toBeCloseTo(-Math.PI / 2);
   });
 
@@ -31,13 +31,13 @@ describe('wrist overlay geometry', () => {
 
   it('moves the anchor back along a horizontal forearm', () => {
     const overlay = wristOverlayFromLandmarks(landmarks({ x: .5, y: .5 }, { x: .7, y: .3 }, { x: .7, y: .7 }), fit);
-    expect(overlay?.x).toBe(430);
+    expect(overlay?.x).toBe(400);
     expect(overlay?.y).toBe(250);
   });
 
   it('preserves manual offset as the detected wrist moves', () => {
-    expect(wristOverlayFromLandmarks(landmarks(), fit, 1, .2)?.y).toBe(492.5);
-    expect(wristOverlayFromLandmarks(landmarks({ x: .5, y: .7 }), fit, 1, .2)?.y).toBe(425);
+    expect(wristOverlayFromLandmarks(landmarks(), fit, 1, .2)?.y).toBe(515);
+    expect(wristOverlayFromLandmarks(landmarks({ x: .5, y: .7 }), fit, 1, .2)?.y).toBe(440);
   });
 
   it('projects touch and mouse movement onto the arm axis only', () => {
@@ -53,14 +53,14 @@ describe('wrist overlay geometry', () => {
   it('keeps the crown toward the fingers and bracelet across a horizontal arm', () => {
     const overlay = wristOverlayFromLandmarks(landmarks({ x: .5, y: .5 }, { x: .7, y: .3 }, { x: .7, y: .7 }), fit);
     expect(overlay?.rotation).toBeCloseTo(0);
-    expect(overlay?.size).toBeCloseTo(170);
+    expect(overlay?.size).toBeCloseTo(270);
   });
 
   it('allows cross-wrist fine placement independently of arm placement', () => {
     expect(crossAdjustmentFromDrag(0, 40, 80, -Math.PI / 2, 200)).toBeCloseTo(.2);
     const overlay = wristOverlayFromLandmarks(landmarks(), fit, 1, 0, .2);
     expect(overlay?.x).toBe(540);
-    expect(overlay?.y).toBe(452.5);
+    expect(overlay?.y).toBe(475);
   });
 
   it('foreshortens across the wrist when depth changes', () => {
@@ -83,6 +83,6 @@ describe('wrist overlay geometry', () => {
     expect(wristOverlayFromLandmarks(landmarks(), { ...fit, mirrored: true }, 1, 0, .2)?.x).toBe(540);
     const portrait = wristOverlayFromLandmarks(landmarks(), { ...fit, containerWidth: 400, containerHeight: 800 });
     expect(portrait?.x).toBe(200);
-    expect(portrait?.y).toBe(724);
+    expect(portrait?.y).toBe(760);
   });
 });

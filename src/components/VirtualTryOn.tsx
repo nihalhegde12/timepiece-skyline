@@ -84,7 +84,6 @@ export function VirtualTryOn({ watch, open, onClose }: { watch: Watch; open: boo
        try { result = detector.detectForVideo(video, now); }
        catch { stop(); setStatus('error'); return; }
       const landmarks = result.landmarks?.[0];
-      console.debug('tryon-debug', JSON.stringify({ hasLm: !!landmarks, lmLen: landmarks?.length, vw: video.videoWidth, vh: video.videoHeight, sw: stage.clientWidth, sh: stage.clientHeight }));
       if (landmarks) {
         const next = wristOverlayFromLandmarks(landmarks, {
           containerWidth: stage.clientWidth,
@@ -93,7 +92,6 @@ export function VirtualTryOn({ watch, open, onClose }: { watch: Watch; open: boo
           videoHeight: video.videoHeight,
            mirrored: mirroredRef.current,
           }, sizeRef.current, armAdjustmentRef.current, crossAdjustmentRef.current);
-        console.debug('tryon-next', JSON.stringify({ next: next ? { x: next.x, y: next.y, size: next.size } : null, size: sizeRef.current, arm: armAdjustmentRef.current, cross: crossAdjustmentRef.current, mirrored: mirroredRef.current, lm0: landmarks[0], lm5: landmarks[5], lm17: landmarks[17] }));
         if (next) {
            const smoothed = smoothWristOverlay(smoothOverlayRef.current, next, dragRef.current ? 1 : .24);
           smoothOverlayRef.current = smoothed;
