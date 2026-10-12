@@ -1,5 +1,5 @@
 # Watch updates
-- [ ] Improve natural wrist fit: correct bracelet orientation, proportional sizing, tilt, and two-axis fine positioning; verify with simulated camera input.
+- [x] Improve natural wrist fit: correct bracelet orientation, proportional sizing, tilt, and two-axis fine positioning; verify with simulated camera input.
 - [x] Correct anatomical try-on placement, add arm-axis drag adjustment, and soften strap ends; verify fitting controls with simulated landmarks and mouse/touch input.
 - [x] Put the product viewer before assembly and verify scroll-controlled assembly.
 - [x] Replace the passenger airliner with a smaller private jet and apply a black-and-gold presentation.
