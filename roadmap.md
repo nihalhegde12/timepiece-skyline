@@ -1,0 +1,17 @@
+# Watch updates
+- [ ] Improve natural wrist fit: correct bracelet orientation, proportional sizing, tilt, and two-axis fine positioning; verify with simulated camera input.
+- [x] Correct anatomical try-on placement, add arm-axis drag adjustment, and soften strap ends; verify fitting controls with simulated landmarks and mouse/touch input.
+- [x] Put the product viewer before assembly and verify scroll-controlled assembly.
+- [x] Replace the passenger airliner with a smaller private jet and apply a black-and-gold presentation.
+- [x] Enlarge the scrolling watches and collection 3D watches with mobile-safe framing.
+- [x] Enable and verify mouse-drag rotation in collection and detail viewers without accidental navigation.
+- [x] Add watch-specific close-up stories and automatic gallery playback with pause and manual navigation.
+- [x] Verify the selected watch's details, gallery playback, and unchanged main collection.
+- [x] Remove sidebar progress and reduce watch glow/growth.
+- [x] Add animated 3D collection and clickable individual watch pages.
+- [x] Verify airplane and watch interactions in the browser.
+- [x] Restore the main collection to its previous presentation.
+- [x] Show richer details and animated image close-ups only on opened watch pages.
+- [x] Verify watch page imagery, controls, and main collection navigation.
+- [x] Keep the jet at one constant on-screen size through the scroll so it never grows.
+- [x] Add private on-device virtual watch try-on with wrist tracking and manual fit controls.

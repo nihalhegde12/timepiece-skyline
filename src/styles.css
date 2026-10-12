@@ -62,6 +62,22 @@
 }
 
 :root {
+  --luxury-black: oklch(0.11 0.014 255);
+  --luxury-black-raised: oklch(0.16 0.02 255);
+  --luxury-gold: oklch(0.76 0.12 82);
+  --luxury-gold-soft: oklch(0.83 0.08 82 / 0.22);
+  --luxury-ivory: oklch(0.94 0.018 82);
+  --watch-stage: oklch(0.105 0.003 260);
+  --watch-surface: oklch(0.18 0.005 260);
+  --watch-ink: oklch(0.94 0.006 85);
+  --watch-muted: oklch(0.67 0.009 260);
+  --watch-line: oklch(0.94 0.006 85 / 0.16);
+  --try-on-shadow: oklch(0 0 0 / .3);
+  --watch-dial: oklch(0.17 0.013 240);
+  --watch-metal-steel: oklch(0.8 0.012 240);
+  --watch-metal-black: oklch(0.36 0.012 260);
+  --watch-metal-gold: oklch(0.78 0.13 85);
+  --watch-metal-rosegold: oklch(0.75 0.085 45);
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.129 0.042 264.695);
@@ -141,4 +157,405 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
   }
+}
+
+/* ---- Airplane scroll story ---- */
+.plane-app {
+  --padding: 10vmin;
+  --font-size-large: 8vw;
+  --font-size-medium: 4vw;
+  --font-size-normal: 2vw;
+  font-family: 'Libre Baskerville', serif;
+  font-size: var(--font-size-normal);
+  color: var(--luxury-ivory);
+  background: var(--luxury-black);
+}
+
+@media only screen and (min-width: 800px) {
+  .plane-app {
+    --font-size-large: 64px;
+    --font-size-medium: 32px;
+    --font-size-normal: 16px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .plane-app {
+    --font-size-large: 40px;
+    --font-size-medium: 20px;
+    --font-size-normal: 14px;
+  }
+}
+
+html:has(.plane-app),
+body:has(.plane-app) {
+  margin: 0;
+  min-height: 100%;
+  min-width: 100%;
+  background-color: var(--luxury-black);
+  overflow-x: hidden;
+}
+
+body:has(.plane-app) canvas {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.plane-app .content {
+  position: relative;
+  z-index: 1;
+  background:
+    linear-gradient(115deg, transparent 0 48%, var(--luxury-gold-soft) 49%, transparent 50%) 0 0 / 100% 100vh,
+    linear-gradient(180deg, var(--luxury-black), var(--luxury-black-raised) 48%, var(--luxury-black));
+}
+
+.plane-app .content .trigger {
+  position: absolute;
+  top: 0;
+  height: 100%;
+}
+
+.plane-app .content .section {
+  position: relative;
+  padding: var(--padding);
+  width: calc(100vw - calc(var(--padding) * 2));
+  height: calc(100vh - calc(var(--padding) * 2));
+  margin: 0 auto;
+  z-index: 2;
+  color: var(--luxury-ivory);
+}
+
+.plane-app .content .section.dark {
+  color: var(--luxury-ivory);
+  background-color: var(--luxury-black);
+}
+
+.plane-app .content .section.right {
+  text-align: right;
+}
+
+.plane-app .content .blueprint {
+  position: relative;
+  background-color: var(--luxury-black);
+  background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+  background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
+  background-attachment: fixed;
+}
+
+.plane-app .content .blueprint > svg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  stroke: var(--luxury-gold);
+  pointer-events: none;
+  visibility: hidden;
+  z-index: 100;
+}
+
+.plane-app .content .blueprint .dark {
+  background-color: transparent;
+}
+
+.plane-app .content .ground-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.plane-app .content .scroll-cta {
+  position: absolute;
+  bottom: var(--padding);
+  font-size: var(--font-size-medium);
+  opacity: 0;
+}
+
+.plane-app h1,
+.plane-app h2 {
+  font-size: var(--font-size-large);
+  margin: 0vmin 0 2vmin 0;
+  font-weight: 700;
+  display: inline;
+}
+
+.plane-app h1,
+.plane-app h2,
+.plane-app h3 {
+  text-shadow: 0 1px 0 var(--luxury-black), 0 0 28px var(--luxury-black);
+}
+
+.plane-app h1::after,
+.plane-app h2::after {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 1px;
+  margin-top: 18px;
+  background: var(--luxury-gold);
+}
+
+.plane-app .right h2::after { margin-left: auto; }
+
+.plane-app h3 {
+  font-size: var(--font-size-medium);
+  font-weight: 400;
+  margin: 0;
+}
+
+.plane-app .loading {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-medium);
+}
+
+.plane-app .contact-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  background: var(--luxury-black);
+  color: var(--luxury-ivory);
+  border: 1px solid var(--luxury-gold);
+  padding: 12px 24px;
+  font-family: 'Libre Baskerville', serif;
+  font-size: var(--font-size-normal);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.plane-app .contact-btn:hover {
+  background: var(--luxury-gold);
+  color: var(--luxury-black);
+  border-color: var(--luxury-gold);
+}
+
+.plane-app .watch-img {
+  --watch-proximity: 0;
+  --watch-glow: oklch(0.85 0.12 83);
+  --watch-glow-core: oklch(0.97 0.04 83);
+  display: block;
+  width: min(48vmin, 440px);
+  height: auto;
+  margin-top: 3vmin;
+  border-radius: 14px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+  filter:
+    brightness(calc(1 + var(--watch-proximity) * 0.08))
+    drop-shadow(0 0 calc(var(--watch-proximity) * 4px) oklch(from var(--watch-glow-core) l c h / calc(var(--watch-proximity) * 0.2)))
+    drop-shadow(0 0 calc(var(--watch-proximity) * 12px) oklch(from var(--watch-glow) l c h / calc(var(--watch-proximity) * 0.18)))
+    saturate(calc(1 - var(--watch-dim, 0) * 0.15))
+    brightness(calc(1 - var(--watch-dim, 0) * 0.08));
+  transform: scale(calc(1 + var(--watch-proximity) * 0.025)) translateY(calc(var(--watch-proximity) * -2px));
+  outline: none;
+  outline-offset: calc(6px + var(--watch-proximity) * 6px);
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.6),
+    0 0 calc(var(--watch-proximity) * 20px) 0 oklch(from var(--tone) l c h / calc(var(--watch-proximity) * 0.15));
+  transition: filter 180ms linear, transform 300ms ease-out, outline-color 200ms, box-shadow 200ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plane-app .watch-img { transition: none; }
+}
+
+.plane-app .section.right .watch-img {
+  margin-left: auto;
+}
+
+@media only screen and (max-width: 500px) {
+  .plane-app .contact-btn {
+    top: 10px;
+    right: 10px;
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}
+
+/* ---- Color sync tones ---- */
+.plane-app { --tone: oklch(0.82 0.03 230); transition: --tone 0.8s; }
+.plane-app[data-tone="steel"] { --tone: oklch(0.82 0.03 230); }
+.plane-app[data-tone="black"] { --tone: oklch(0.55 0.02 260); }
+.plane-app[data-tone="gold"] { --tone: oklch(0.82 0.13 85); }
+.plane-app[data-tone="rosegold"] { --tone: oklch(0.78 0.09 40); }
+@property --tone { syntax: "<color>"; inherits: true; initial-value: oklch(0.82 0.03 230); }
+.plane-app .watch-img { --watch-glow: var(--tone); }
+
+/* ---- Spotlight sweep from the jet nose to the active watch ---- */
+.plane-app .watch-spotlight {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: calc(var(--beam-strength, 0) * 0.12);
+  transition: opacity 200ms linear;
+  background:
+    radial-gradient(circle 32vmin at var(--spot-x, 50%) var(--spot-y, 50%), oklch(from var(--tone) l c h / 0.35), transparent 70%),
+    radial-gradient(circle 14vmin at var(--beam-x, 50%) var(--beam-y, 50%), oklch(from var(--tone) l c h / 0.4), transparent 70%),
+    radial-gradient(ellipse at center, oklch(from var(--tone) l c h / 0.08), transparent 75%);
+}
+
+/* ---- Animated watch collection and full-screen product viewer ---- */
+.plane-app .content .section.collection {
+  height: auto;
+  min-height: 90vh;
+  width: 100%;
+  padding: 80px max(24px, 6%);
+  z-index: 20;
+  background: var(--luxury-black);
+  border-top: 1px solid var(--luxury-gold-soft);
+}
+.plane-app .collection h2 { font-size: 48px; }
+.plane-app .collection p { color: var(--watch-muted); margin-top: 18px; }
+.collection-assembly { display: flex; flex-direction: column; align-items: center; margin-bottom: 12px; }
+.watch-assembly-scene { width: 100%; max-width: 620px; height: 360px; }
+.plane-app .collection-assembly-caption { font: 11px Arial, sans-serif; letter-spacing: .22em; text-transform: uppercase; color: var(--watch-muted); margin-top: 6px; }
+@media (max-width: 720px) {
+  .watch-assembly-scene { height: 240px; }
+}
+.collection-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; margin-top: 40px; }
+.collection-card { display: block; min-width: 0; text-decoration: none; color: var(--watch-ink); border-bottom: 1px solid var(--watch-line); transition: border-color 200ms; }
+.collection-card:hover, .collection-card:focus-visible { border-color: var(--watch-ink); }
+.collection-card .watch-scene { height: 400px; }
+.collection-caption { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 24px 0; }
+.collection-caption strong { font-size: 16px; font-weight: 400; }
+.collection-caption small { display: block; font: 12px Arial, sans-serif; color: var(--watch-muted); margin-top: 8px; }
+.watch-detail-gallery { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 64px; border-top: 1px solid var(--watch-line); padding: 64px max(24px, 6%) 72px; }
+.watch-detail-eyebrow { font: 12px Arial, sans-serif; color: var(--watch-muted); margin-bottom: 20px; }
+.watch-detail-copy h2 { font-size: 32px; line-height: 1.3; }
+.watch-detail-copy .collection-description { font: 14px/1.8 Arial, sans-serif; color: var(--watch-muted); margin: 20px 0 32px; max-width: 48ch; }
+.watch-detail-facts { margin: 0; font: 12px/1.5 Arial, sans-serif; }
+.watch-detail-facts > div { display: flex; justify-content: space-between; gap: 20px; padding: 16px 0; border-bottom: 1px solid var(--watch-line); }
+.watch-detail-facts dt { color: var(--watch-muted); }
+.watch-detail-facts dd { text-align: right; }
+.watch-detail-images { min-width: 0; }
+.watch-detail-images[data-playing='false'] .collection-photo img { animation-play-state: paused; }
+.watch-gallery-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--watch-line); padding: 10px 0; font: 12px/1.5 Arial, sans-serif; }
+.watch-gallery-toolbar > div { display: flex; flex-shrink: 0; }
+.watch-gallery-counter { color: var(--watch-muted); }
+.watch-closeup-copy { margin-top: 32px; animation: watch-detail-reveal 600ms ease both; }
+.watch-closeup-copy h3 { font-size: 22px; line-height: 1.4; margin-bottom: 12px; }
+.watch-closeup-copy > p:last-child { color: var(--watch-muted); font: 14px/1.8 Arial, sans-serif; }
+@keyframes watch-detail-reveal { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) { .watch-closeup-copy { animation: none; } }
+@media (max-width: 750px) { .watch-detail-gallery { grid-template-columns: minmax(0, 1fr); gap: 32px; padding: 40px 20px; } .watch-detail-copy h2 { font-size: 26px; } }
+.collection-photo { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: var(--watch-stage); border-top: 1px solid var(--watch-line); }
+.collection-photo img { width: 100%; height: 100%; object-fit: contain; animation: watch-photo-drift 8s ease-in-out infinite alternate; }
+.collection-photo[data-view='1'] img { object-fit: cover; transform-origin: 50% 40%; animation-name: watch-dial-drift; }
+.collection-photo[data-view='2'] img { object-fit: cover; transform-origin: 50% 85%; animation-name: watch-bracelet-drift; }
+.collection-photo-label { position: absolute; left: 16px; bottom: 14px; font: 11px Arial, sans-serif; color: var(--watch-ink); background: var(--watch-stage); padding: 6px 8px; }
+.collection-image-tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 12px 0 20px; }
+.collection-image-tab { height: auto; padding: 0 0 8px; flex-direction: column; gap: 8px; border-radius: 0; border-bottom: 1px solid transparent; color: var(--watch-muted); font: 11px Arial, sans-serif; }
+.collection-image-tab[aria-pressed='true'] { color: var(--watch-ink); border-color: var(--watch-ink); }
+.collection-thumbnail { display: block; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; }
+.collection-thumbnail img { width: 100%; height: 100%; object-fit: contain; }
+.collection-thumbnail[data-view='1'] img { object-fit: cover; transform: scale(1.8); transform-origin: 50% 40%; }
+.collection-thumbnail[data-view='2'] img { object-fit: cover; transform: scale(1.65); transform-origin: 50% 85%; }
+@keyframes watch-photo-drift { from { transform: scale(.94) rotate(-2deg); } to { transform: scale(1.02) rotate(2deg); } }
+@keyframes watch-dial-drift { from { transform: scale(1.65) translateX(-1%); } to { transform: scale(1.85) translateX(1%); } }
+@keyframes watch-bracelet-drift { from { transform: scale(1.5) translateX(1%); } to { transform: scale(1.7) translateX(-1%); } }
+@media (prefers-reduced-motion: reduce) {
+  .collection-photo img { animation: none; }
+  .collection-photo[data-view='1'] img { transform: scale(1.75); }
+  .collection-photo[data-view='2'] img { transform: scale(1.6); }
+}
+.watch-scene { width: 100%; height: 100%; min-width: 0; }
+.watch-scene-interactive { cursor: grab; touch-action: pan-y; }
+.watch-scene-interactive:active { cursor: grabbing; }
+/* The airplane's fixed canvas rules must never affect watch canvases. */
+body:has(.plane-app) .watch-scene canvas,
+body:has(.plane-app) .watch-assembly-scene canvas { position: static; z-index: auto; opacity: 1; pointer-events: auto; }
+.watch-page {
+  --background: var(--watch-stage); --foreground: var(--watch-ink);
+  --accent: var(--watch-surface); --accent-foreground: var(--watch-ink);
+  --ring: var(--watch-muted);
+  min-height: 100svh; background: var(--watch-stage); color: var(--watch-ink);
+  font-family: 'Libre Baskerville', Georgia, serif;
+  display: flex; flex-direction: column; position: relative;
+}
+body:has(.watch-page) { background: var(--watch-stage); }
+.watch-page-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 24px 32px; border-bottom: 1px solid var(--watch-line); font-family: Arial, sans-serif; }
+.watch-page-wordmark { font-size: 11px; letter-spacing: 0; }
+.watch-page-number { color: var(--watch-muted); font-size: 12px; }
+.watch-page-title { text-align: center; padding: 32px 16px 0; }
+.watch-page-title p { color: var(--watch-muted); font: 12px Arial, sans-serif; margin-bottom: 12px; }
+.watch-page-title h1 { font-size: 42px; line-height: 1.2; }
+.watch-page > .watch-scene { height: min(65svh, 720px); min-height: 400px; cursor: grab; touch-action: none; }
+.watch-page > .watch-scene:active { cursor: grabbing; }
+.watch-viewer-toolbar { align-self: center; display: flex; gap: 8px; padding: 8px; border: 1px solid var(--watch-line); border-radius: 8px; }
+.watch-toolbar-divider { width: 1px; align-self: stretch; background: var(--watch-line); margin: 2px 0; }
+.watch-try-on-button { padding-inline: 14px; }
+.watch-finish-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 24px 16px 32px; font-family: Arial, sans-serif; }
+.watch-finish-nav .selected { background: var(--watch-surface); }
+.watch-swatch { width: 12px; height: 12px; border-radius: 50%; border: 1px solid var(--watch-line); background: var(--watch-metal-steel); flex-shrink: 0; }
+.watch-swatch[data-tone='black'] { background: var(--watch-metal-black); }
+.watch-swatch[data-tone='gold'] { background: var(--watch-metal-gold); }
+.watch-swatch[data-tone='rosegold'] { background: var(--watch-metal-rosegold); }
+@media (max-width: 1000px) {
+  .collection-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 500px) {
+  .plane-app .content .section.collection { padding: 72px 20px 48px; }
+  .plane-app .collection h2 { font-size: 32px; }
+  .collection-grid { gap: 16px; }
+  .plane-app .watch-img { width: min(64vmin, 330px); }
+  .collection-card .watch-scene { height: 290px; }
+  .collection-caption strong { font-size: 13px; }
+  .collection-caption { padding: 16px 0; align-items: flex-start; }
+  .collection-caption svg { width: 16px; flex-shrink: 0; }
+  .watch-page-header { padding: 16px 12px; }
+  .watch-page-wordmark { display: none; }
+  .watch-page-title h1 { font-size: 32px; }
+  .watch-page > .watch-scene { height: 54svh; min-height: 360px; }
+  .watch-finish-nav { gap: 4px; }
+}
+
+
+
+.watch-assembly-intro { width: 100%; border-top: 1px solid var(--watch-line); }
+.watch-assembly-track { height: 220svh; width: 100%; position: relative; }
+.watch-assembly-stage { position: sticky; top: 0; height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 16px; }
+.watch-assembly-intro .watch-assembly-scene { width: 100%; max-width: 760px; height: min(74svh, 660px); pointer-events: none; }
+.watch-assembly-stage .collection-assembly-caption { color: var(--watch-muted); font: 11px Arial, sans-serif; letter-spacing: 0; text-transform: uppercase; margin-top: 16px; }
+.watch-assembly-static { height: 100svh; }
+
+/* ---- Private, on-device virtual fitting ---- */
+.try-on-dialog { position: fixed; inset: 0; z-index: 1200; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; background: var(--watch-stage); color: var(--watch-ink); font-family: Arial, sans-serif; }
+.try-on-header { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: max(16px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) 16px max(20px, env(safe-area-inset-left)); border-bottom: 1px solid var(--watch-line); }
+.try-on-header p { color: var(--watch-muted); font-size: 11px; text-transform: uppercase; margin-bottom: 5px; }
+.try-on-header h2 { font-family: 'Libre Baskerville', Georgia, serif; font-size: clamp(18px, 3vw, 26px); font-weight: 400; }
+.try-on-stage { position: relative; min-height: 0; overflow: hidden; display: grid; place-items: center; background: var(--luxury-black-raised); isolation: isolate; }
+.try-on-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 300ms ease; }
+.try-on-stage[data-active='true'] .try-on-video { opacity: 1; }
+.try-on-video[data-mirrored='true'] { transform: scaleX(-1); }
+.try-on-watch { position: absolute; z-index: 2; height: auto; max-width: none; pointer-events: auto; touch-action: none; user-select: none; cursor: grab; filter: drop-shadow(0 3px 4px var(--try-on-shadow)); transform-origin: center; will-change: left, top, transform, width; }
+.try-on-watch:active { cursor: grabbing; }
+.try-on-empty { z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 18px; text-align: center; padding: 28px; }
+.try-on-empty > svg { width: 42px; height: 42px; color: var(--luxury-gold); stroke-width: 1; }
+.try-on-empty p { font-family: 'Libre Baskerville', Georgia, serif; font-size: clamp(20px, 4vw, 34px); }
+.try-on-reticle { position: absolute; z-index: 1; width: min(42vw, 260px); aspect-ratio: 1; border: 1px solid var(--watch-line); border-radius: 50%; opacity: 0; pointer-events: none; }
+.try-on-stage[data-active='true'] .try-on-reticle { opacity: .6; }
+.try-on-reticle::before, .try-on-reticle::after { content: ''; position: absolute; background: var(--watch-line); }
+.try-on-reticle::before { width: 40px; height: 1px; left: calc(50% - 20px); top: 50%; }
+.try-on-reticle::after { width: 1px; height: 40px; left: 50%; top: calc(50% - 20px); }
+.try-on-status { position: absolute; z-index: 3; left: 50%; bottom: 18px; transform: translateX(-50%); width: max-content; max-width: calc(100% - 32px); padding: 9px 13px; border: 1px solid var(--watch-line); border-radius: 6px; background: oklch(from var(--watch-stage) l c h / .86); backdrop-filter: blur(10px); color: var(--watch-ink); font-size: 12px; text-align: center; }
+.try-on-controls { min-height: 68px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; padding: 10px max(20px, env(safe-area-inset-right)) max(10px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left)); border-top: 1px solid var(--watch-line); color: var(--watch-muted); font-size: 12px; }
+.try-on-controls > div { display: flex; gap: 6px; }
+.try-on-controls > span:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+@media (prefers-reduced-motion: reduce) { .try-on-video { transition: none; } }
+@media (max-width: 500px) {
+  .watch-viewer-toolbar { max-width: calc(100% - 24px); flex-wrap: wrap; justify-content: center; }
+  .try-on-header { min-height: 68px; }
+  .try-on-status { bottom: 12px; }
 }

@@ -10,33 +10,43 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as WatchesWatchIdRouteImport } from './routes/watches.$watchId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WatchesWatchIdRoute = WatchesWatchIdRouteImport.update({
+  id: '/watches/$watchId',
+  path: '/watches/$watchId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/watches/$watchId': typeof WatchesWatchIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/watches/$watchId': typeof WatchesWatchIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/watches/$watchId': typeof WatchesWatchIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/watches/$watchId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/watches/$watchId'
+  id: '__root__' | '/' | '/watches/$watchId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  WatchesWatchIdRoute: typeof WatchesWatchIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +58,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/watches/$watchId': {
+      id: '/watches/$watchId'
+      path: '/watches/$watchId'
+      fullPath: '/watches/$watchId'
+      preLoaderRoute: typeof WatchesWatchIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  WatchesWatchIdRoute: WatchesWatchIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
